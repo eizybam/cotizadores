@@ -18,10 +18,14 @@ public class EnvioService {
             throw new CustomBadRequestException("No se aceptan paquetes con alguna dimension mayor a 150 cm");
         }
 
+        double volumen = payload.getLargoCm() * payload.getAnchoCm() * payload.getAltoCm();
+
+        if (volumen > 1000000){
+            throw new CustomBadRequestException("No se aceptan paquetes con un volumen mayor a 1,000,000 cm3");
+        }
+
         double costo = 80;
         costo += payload.getPesoKg() * 12;
-
-        double volumen = payload.getLargoCm() * payload.getAnchoCm() * payload.getAltoCm();
 
         if (volumen > 50000){
             costo += 100;
